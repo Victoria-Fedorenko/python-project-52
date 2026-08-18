@@ -1,0 +1,33 @@
+[project]
+name = "hexlet-code"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Viktoria Fedorenko", email = "vnfedorenko97@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "django>=6.1",
+]
+
+[project.scripts]
+python-project-52 = "python_project_52:main"
+
+[tool.uv]
+package = false
+
+[dependency-groups]
+dev = [
+    "ruff>=0.16.3",
+]
+
+[tool.ruff]
+exclude = [
+    ".venv",       # виртуальное окружение
+    "build",       # собранные файлы
+    "dist",        # дистрибутивы
+    "migrations",  # миграции Django
+    "tests/data",  # конкретная папка с тестовыми данными
+    "settings.py"
+]
