@@ -1,14 +1,15 @@
 install:
-	uv add django gunicorn
+	python -m pip install --upgrade pip
+	pip install -r requirements.txt || pip install .
 
 migrate:
-	uv run python manage.py migrate
+	python manage.py migrate
 
 collectstatic:
-	uv run python manage.py collectstatic --noinput
+	python manage.py collectstatic --noinput
 
 build:
 	./build.sh
 
 render-start:
-    gunicorn task_manager.wsgi
+	gunicorn task_manager.wsgi --bind 0.0.0.0:$$PORT
