@@ -4,6 +4,9 @@ install:
 migrate:
 	uv run python manage.py migrate
 
+tailwind_build:
+	uv run python manage.py tailwind build
+
 collectstatic:
 	uv run python manage.py collectstatic --noinput
 

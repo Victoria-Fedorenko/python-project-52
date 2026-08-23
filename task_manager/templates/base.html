@@ -1,0 +1,56 @@
+{% load tailwind_css %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Менеджер задач{% endblock %}</title>
+    {% tailwind_css %}
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+    <!-- НАВИГАЦИОННОЕ МЕНЮ -->
+    <nav class="bg-gray-800 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <!-- Логотип / название -->
+            <a href="/" class="text-xl font-bold hover:text-gray-300 transition">
+                Менеджер задач
+            </a>
+
+            <!-- Ссылки меню -->
+            <div class="space-x-4">
+                <a href="{% url 'users' %}" class="hover:underline">Пользователи</a>
+                <a href="{% url 'login' %}" class="hover:underline">Вход</a>
+                <a href="{% url 'register' %}" class="hover:underline">Регистрация</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ОСНОВНОЙ КОНТЕЙНЕР -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- БЛОК ДЛЯ ФЛЕШ-СООБЩЕНИЙ -->
+        {% if messages %}
+            <div class="space-y-2 mb-6">
+                {% for message in messages %}
+                    <div role="alert" 
+                         class="p-4 rounded-md {% if message.tags == 'success' %}bg-green-100 text-green-800{% elif message.tags == 'error' %}bg-red-100 text-red-800{% else %}bg-blue-100 text-blue-800{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- ОСНОВНОЙ БЛОК (заполняется в дочерних шаблонах) -->
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- ПОДВАЛ (опционально) -->
+    <footer class="bg-gray-200 text-center text-gray-600 py-4 mt-8">
+        <div class="container mx-auto">
+            &copy; 2026 Менеджер задач
+        </div>
+    </footer>
+
+</body>
+</html>

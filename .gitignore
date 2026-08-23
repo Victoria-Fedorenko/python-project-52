@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+*.log
+
+# Virtual environments
+.venv
+venv
+env
+ENV
+env.bak
+venv.bak
+
+# Database
+db.sqlite3
+*.sqlite3
+
+# Static files (collected by collectstatic)
+static/
+staticfiles/
+media/
+public/
+
+# Tailwind built CSS – если сборка кладёт результат в какую-то папку,
+# исключите её. Например, если вы используете django-tailwind-cli,
+# он обычно создаёт папку static/ внутри приложения или в корне.
+# Ниже я исключаю возможные папки для собранного CSS:
+
+# Если вы явно указали STATIC_ROOT = 'staticfiles/' – она уже исключена выше.
+# Если вы используете assets/dist/ для скомпилированного Tailwind:
+assets/dist/
+
+# Но если assets/css/tailwind.css – это ИСХОДНЫЙ файл с директивами @tailwind,
+# его НЕ надо исключать. Если же это скомпилированный CSS, то исключите его:
+# assets/css/tailwind.css   (раскомментируйте, если нужно)
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Django local settings (если вы храните секреты отдельно)
+local_settings.py
+*.local.py
+
+# uv (менеджер пакетов) – кеш
+.uv/

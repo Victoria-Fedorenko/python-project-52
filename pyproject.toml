@@ -9,6 +9,7 @@ authors = [
 requires-python = ">=3.14"
 dependencies = [
     "django>=6.1",
+    "django-tailwind-cli>=4.7.0",
 ]
 
 [project.scripts]
