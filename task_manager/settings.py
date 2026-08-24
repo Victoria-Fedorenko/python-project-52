@@ -53,6 +53,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'task_manager.urls'
@@ -132,4 +134,17 @@ MAILERS = {
     },
 }
 
-STATICFILES_DIRS = [BASE_DIR / "assets"]
+# Папка, куда собирать статику (для продакшена)
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Дополнительные папки с исходной статикой (помимо static/ в приложениях)
+STATICFILES_DIRS = [
+    BASE_DIR / 'assets',
+]
+
+STORAGES = {
+    # ...
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
