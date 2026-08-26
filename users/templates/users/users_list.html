@@ -1,0 +1,8 @@
+<h1>Все пользователи</h1>
+<ul>
+    {% for user in users %}
+        <li>{{ user.username }} ({{ user.email }})</li>
+    {% empty %}
+        <li>Пользователей пока нет.</li>
+    {% endfor %}
+</ul>
