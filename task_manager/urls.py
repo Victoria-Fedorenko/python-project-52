@@ -21,5 +21,5 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
-    path('users/', UserListView.as_view(), name='user_list'),
+    path('users/', include('users.urls')),
 ]

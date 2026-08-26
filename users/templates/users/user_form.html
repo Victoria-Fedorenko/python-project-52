@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+    <h1 class="text-2xl font-bold mb-4 text-center">Регистрация</h1>
+
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+
+        <!-- Поле "Имя" (first_name) -->
+        <div>
+            <label for="{{ form.first_name.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                Имя
+            </label>
+            {{ form.first_name }}
+            {% if form.first_name.errors %}
+                <p class="text-sm text-red-600 mt-1">{{ form.first_name.errors|join:", " }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Поле "Фамилия" (last_name) -->
+        <div>
+            <label for="{{ form.last_name.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                Фамилия
+            </label>
+            {{ form.last_name }}
+            {% if form.last_name.errors %}
+                <p class="text-sm text-red-600 mt-1">{{ form.last_name.errors|join:", " }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Поле "Имя пользователя" (username) -->
+        <div>
+            <label for="{{ form.username.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                Имя пользователя
+            </label>
+            {{ form.username }}
+            {% if form.username.errors %}
+                <p class="text-sm text-red-600 mt-1">{{ form.username.errors|join:", " }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Поле "Пароль" (password1) -->
+        <div>
+            <label for="{{ form.password1.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                Пароль
+            </label>
+            {{ form.password1 }}
+            {% if form.password1.errors %}
+                <p class="text-sm text-red-600 mt-1">{{ form.password1.errors|join:", " }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Поле "Подтверждение пароля" (password2) -->
+        <div>
+            <label for="{{ form.password2.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                Подтверждение пароля
+            </label>
+            {{ form.password2 }}
+            {% if form.password2.errors %}
+                <p class="text-sm text-red-600 mt-1">{{ form.password2.errors|join:", " }}</p>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
+            Зарегистрировать
+        </button>
+    </form>
+
+    <p class="mt-4 text-center text-sm text-gray-600">
+        Уже есть аккаунт?
+        <a href="{% url 'login' %}" class="text-blue-600 hover:underline">Войти</a>
+    </p>
+</div>
+{% endblock %}
