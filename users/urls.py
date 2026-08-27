@@ -2,7 +2,7 @@ from .views import (
     UserListView,
     UserCreateView,
     UserUpdateView,
-    UserDeleteView,
+#    UserDeleteView,
 )
 from django.contrib.auth.views import LoginView, LogoutView
 
