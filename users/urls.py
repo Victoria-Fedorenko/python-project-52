@@ -5,6 +5,7 @@ from .views import (
 #    UserDeleteView,
 )
 from django.contrib.auth.views import LoginView, LogoutView
+from django.urls import path
 
 app_name = 'users'  # пространство имён для обратных ссылок
 
