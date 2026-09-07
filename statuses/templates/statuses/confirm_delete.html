@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Удаление статуса{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-8 rounded shadow text-center">
+    <h1 class="text-2xl font-bold mb-4">Удаление статуса</h1>
+    <p class="mb-6 text-gray-700">Вы уверены, что хотите удалить статус «{{ status.name }}»?</p>
+    <form method="post">
+        {% csrf_token %}
+        <div class="flex justify-center space-x-4">
+            <button type="submit" 
+                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                Да, удалить
+            </button>
+            <a href="{% url 'statuses:list' %}" 
+               class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
+                Отмена
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

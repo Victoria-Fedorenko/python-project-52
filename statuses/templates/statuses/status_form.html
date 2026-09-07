@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if form.instance.pk %}Изменение статуса{% else %}Создание статуса{% endif %}{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-8 rounded shadow">
+    <h1 class="text-2xl font-bold mb-6">
+        {% if form.instance.pk %}Изменение статуса{% else %}Создание статуса{% endif %}
+    </h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-4">
+            <label for="{{ form.name.id_for_label }}" class="block text-gray-700 font-medium mb-2">Имя</label>
+            {{ form.name }}
+            {% if form.name.errors %}
+                <div class="text-red-600 text-sm mt-1">{{ form.name.errors }}</div>
+            {% endif %}
+        </div>
+        <div class="flex items-center justify-between">
+            <button type="submit" 
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                {% if form.instance.pk %}Изменить{% else %}Создать{% endif %}
+            </button>
+            <a href="{% url 'statuses:list' %}" class="text-gray-600 hover:text-gray-800">Отмена</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

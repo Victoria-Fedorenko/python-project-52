@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Статусы{% endblock %}
+
+{% block content %}
+<div class="flex justify-between items-center mb-4">
+    <h1 class="text-2xl font-bold">Статусы</h1>
+    <a href="{% url 'statuses:create' %}" 
+       class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Создать статус
+    </a>
+</div>
+
+<table class="min-w-full bg-white border border-gray-200">
+    <thead>
+        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+            <th class="py-3 px-6 text-left">ID</th>
+            <th class="py-3 px-6 text-left">Имя</th>
+            <th class="py-3 px-6 text-left">Дата создания</th>
+            <th class="py-3 px-6 text-center"></th>
+        </tr>
+    </thead>
+    <tbody class="text-gray-700 text-sm">
+        {% for status in statuses %}
+        <tr class="border-b border-gray-200 hover:bg-gray-100">
+            <td class="py-3 px-6 text-left">{{ status.id }}</td>
+            <td class="py-3 px-6 text-left">{{ status.name }}</td>
+            <td class="py-3 px-6 text-left">{{ status.created_at|date:"d.m.Y H:i" }}</td>
+            <td class="py-3 px-6 text-center">
+                <a href="{% url 'statuses:update' status.pk %}" 
+                   class="text-blue-600 hover:text-blue-900 mr-4">Изменить</a>
+                <a href="{% url 'statuses:delete' status.pk %}" 
+                   class="text-red-600 hover:text-red-900">Удалить</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4" class="py-4 text-center text-gray-500">Нет статусов</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
