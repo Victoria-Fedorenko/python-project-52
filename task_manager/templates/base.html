@@ -23,6 +23,7 @@
                 {% if user.is_authenticated %}
                     <a href="{% url 'statuses:list' %}" class="hover:underline">Статусы</a>
                     <a href="{% url 'tasks:list' %}" class="hover:underline">Задачи</a>
+                    <a href="{% url 'labels:list' %}" class="hover:underline">Метки</a>
                 {% endif %}
                 <a href="#" class="hover:underline">Вход</a>
                 <a href="#" class="hover:underline">Регистрация</a>

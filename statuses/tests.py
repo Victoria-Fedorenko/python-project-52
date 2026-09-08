@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
+from users.models import User
 from .models import Status
 from django.contrib.auth import get_user_model
 from django.contrib.messages import get_messages
@@ -8,8 +9,6 @@ from tasks.models import Task
 
 # Create your tests here.
 class StatusesTests(TestCase):
-
-    User = get_user_model()
 
     @classmethod
     def setUpTestData(cls):
@@ -35,7 +34,7 @@ class StatusesTests(TestCase):
 
         self.client.logout()
         response = self.client.get(reverse('statuses:list'))
-        self.assertRedirects(response, f'/users/login/?next=/statuses/list/')
+        self.assertRedirects(response, f'/users/login/?next=/statuses/')
 
     def test_status_create(self):
 
