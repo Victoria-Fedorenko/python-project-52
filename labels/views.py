@@ -1,3 +1,4 @@
+from django.contrib import messages, redirects
 from django.shortcuts import render
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
@@ -34,6 +35,6 @@ class LabelDeleteView(LoginRequiredMixin, DeleteView):
     def post(self, request, *args, **kwargs):
         if self.get_object().tasks.exists():
             messages.error(self.request, 'Невозможно удалить метку')
-            return redirect('labels:list')
+            return redirects('labels:list')
         messages.success(self.request, 'Метка успешно удалена')
         return super().post(self.request, *args, **kwargs)
