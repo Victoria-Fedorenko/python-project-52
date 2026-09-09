@@ -5,7 +5,7 @@ from statuses.models import Status
 from users.models import User
 from labels.models import Label
 
-class TaskFilrer(django_filters.FilterSet):
+class TaskFilter(django_filters.FilterSet):
 
         status = django_filters.ModelChoiceFilter(
                 queryset=Status.objects.all(),
