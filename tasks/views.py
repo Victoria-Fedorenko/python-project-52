@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse, reverse_lazy
 from django.contrib import messages
 from .models import Task  
+from .filters import TaskFilter
 
 
 class TaskListView(LoginRequiredMixin, ListView):
@@ -12,6 +13,20 @@ class TaskListView(LoginRequiredMixin, ListView):
     model = Task
     template_name = 'tasks/tasks_list.html'
     context_object_name = 'tasks'
+
+    def get_queryset(self):
+        self.filterset = TaskFilter(
+            self.request.GET,
+            queryset=super().get_queryset(),
+            request=self.request
+        )
+        return self.filterset.qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = self.filterset #дополняем данные объектом фильтра
+        return context
+    
 
 class TaskCreateView(LoginRequiredMixin, CreateView):
 

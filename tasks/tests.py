@@ -1,14 +1,12 @@
 from django.test import TestCase
 from django.urls import reverse
 from statuses.models import Status
+from users.models import User
 from .models import Task
-from django.contrib.auth import get_user_model
 from django.contrib.messages import get_messages
-
+from labels.models import Label
 
 class TasksTest(TestCase):
-
-    User = get_user_model()
 
     @classmethod
     def setUpTestData(cls):
@@ -207,3 +205,131 @@ class TasksTest(TestCase):
         self.client.logout()
         response = self.client.get(reverse('tasks:detail', args=[self.task1.id]))
         self.assertRedirects(response, f'/users/login/?next=/tasks/{self.task1.id}/')
+
+class FilterTest(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        # Пользователи
+        cls.user1 = User.objects.create_user(username='user1', password='pass123')
+        cls.user2 = User.objects.create_user(username='user2', password='pass123')
+
+        # Статусы
+        cls.status_new = Status.objects.create(name='New')
+        cls.status_in_progress = Status.objects.create(name='In Progress')
+
+        # Метки
+        cls.label_bug = Label.objects.create(name='Bug')
+        cls.label_feature = Label.objects.create(name='Feature')
+
+        # Задача 1: автор user1, статус New, исполнитель user2, метка Bug
+        cls.task1 = Task.objects.create(
+            name='Task 1',
+            status=cls.status_new,
+            author=cls.user1,
+            executor=cls.user2,
+        )
+        cls.task1.labels.add(cls.label_bug)
+
+        # Задача 2: автор user1, статус In Progress, исполнитель user1, метка Feature
+        cls.task2 = Task.objects.create(
+            name='Task 2',
+            status=cls.status_in_progress,
+            author=cls.user1,
+            executor=cls.user1,
+        )
+        cls.task2.labels.add(cls.label_feature)
+
+        # Задача 3: автор user2, статус New, исполнитель user2, метка Bug
+        cls.task3 = Task.objects.create(
+            name='Task 3',
+            status=cls.status_new,
+            author=cls.user2,
+            executor=cls.user2,
+        )
+        cls.task3.labels.add(cls.label_bug)
+
+        # Задача 4: автор user2, статус In Progress, исполнитель user1, без меток
+        cls.task4 = Task.objects.create(
+            name='Task 4',
+            status=cls.status_in_progress,
+            author=cls.user2,
+            executor=cls.user1,
+        )
+        # метки не добавляем
+        
+    def test_filter_by_status(self):
+
+        self.client.force_login(self.user1)
+        response = self.client.get(reverse('tasks:list'), {'status': self.status_new.id})
+        tasks = response.context['tasks']
+        self.assertEqual(tasks.count(), 2)
+        self.assertIn(self.task1, tasks)
+        self.assertIn(self.task3, tasks)
+        self.assertNotIn(self.task2, tasks)
+        self.assertNotIn(self.task4, tasks)  
+
+    def test_filter_by_executor(self):
+
+        self.client.force_login(self.user1)
+        response = self.client.get(reverse('tasks:list'), {'executor': self.user2.id})
+        tasks = response.context['tasks']
+        self.assertEqual(tasks.count(), 2)
+        self.assertIn(self.task1, tasks)
+        self.assertIn(self.task3, tasks)
+        self.assertNotIn(self.task2, tasks)
+        self.assertNotIn(self.task4, tasks) 
+
+    def test_filter_by_label(self):
+
+        self.client.force_login(self.user1)
+        response = self.client.get(reverse('tasks:list'), {'labels': [self.label_bug.id, self.label_feature.id]})
+        tasks = response.context['tasks']
+        self.assertEqual(tasks.count(), 3)
+        self.assertIn(self.task1, tasks)
+        self.assertIn(self.task3, tasks)
+        self.assertIn(self.task2, tasks)
+        self.assertNotIn(self.task4, tasks) 
+
+    def test_filter_users_tasks(self):
+
+        self.client.force_login(self.user1)
+        response = self.client.get(reverse('tasks:list'), {'author':True})
+        tasks = response.context['tasks']
+        self.assertEqual(tasks.count(), 2)
+        self.assertIn(self.task1, tasks)
+        self.assertIn(self.task2, tasks)
+        self.assertNotIn(self.task3, tasks)
+        self.assertNotIn(self.task4, tasks) 
+
+    def test_filter_combined(self):
+
+        self.client.force_login(self.user1)
+        response = self.client.get(reverse('tasks:list'), {'author':True, 'status':self.status_new.id})
+        tasks = response.context['tasks']
+        self.assertEqual(tasks.count(), 1)
+        self.assertIn(self.task1, tasks)
+        self.assertNotIn(self.task2, tasks)
+        self.assertNotIn(self.task3, tasks)
+        self.assertNotIn(self.task4, tasks) 
+
+    def test_filter_no_params(self):
+
+        self.client.force_login(self.user1)
+        response = self.client.get(reverse('tasks:list'))
+        tasks = response.context['tasks']
+        self.assertEqual(tasks.count(), 4)
+        self.assertIn(self.task1, tasks)
+        self.assertIn(self.task2, tasks)
+        self.assertIn(self.task3, tasks)
+        self.assertIn(self.task4, tasks) 
+
+
+
+
+
+
+
+
+
+
