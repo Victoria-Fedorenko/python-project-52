@@ -30,4 +30,4 @@ class TaskFilter(django_filters.FilterSet):
             if value:
                 if hasattr(self, 'request') and self.request.user.is_authenticated:
                     return queryset.filter(author=self.request.user)
-                return queryset
+            return queryset
