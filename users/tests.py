@@ -31,7 +31,7 @@ class UsersTests(TestCase):
         
         response = self.client.post(reverse('users:create'), user_data)
         self.assertTrue(User.objects.filter(username='new_user').exists())
-        self.assertRedirects(response, '/')
+        self.assertRedirects(response, reverse('users:list'))
         response = self.client.get(reverse('users:list'))
         users = response.context['users']
         usernames = [user.username for user in users]
@@ -110,7 +110,8 @@ class UsersTests(TestCase):
         self.assertEqual(user.username, 'alice_updated')
         self.assertEqual(user.first_name, 'Alice Updated')
         self.assertEqual(user.last_name, 'Wonder')
-        users = response.context['users']
+        response_list = self.client.get(reverse('users:list'))
+        users = response_list.context['users']
         self.assertEqual(users.count(), 2)
         usernames = [user.username for user in users]
         self.assertIn('alice_updated', usernames)
