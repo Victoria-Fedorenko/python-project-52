@@ -1,5 +1,5 @@
-from django.contrib import messages, redirects
-from django.shortcuts import render
+from django.contrib import messages
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Label
@@ -15,9 +15,14 @@ class LabelListView(LoginRequiredMixin, ListView):
 
 class LabelCreateView(LoginRequiredMixin, CreateView):
 
+    model = Label
     form_class = LabelForm
     template_name = 'labels/label_form.html'
     success_url = reverse_lazy('labels:list')
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, 'Метка успешно создана')
+        return response
 
 class LabelUpdateView(LoginRequiredMixin, UpdateView):
     
@@ -25,6 +30,10 @@ class LabelUpdateView(LoginRequiredMixin, UpdateView):
     form_class = LabelForm
     template_name = 'labels/label_form.html'
     success_url = reverse_lazy('labels:list')
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, 'Метка успешно изменена')
+        return response
 
 class LabelDeleteView(LoginRequiredMixin, DeleteView):
 
@@ -35,6 +44,6 @@ class LabelDeleteView(LoginRequiredMixin, DeleteView):
     def post(self, request, *args, **kwargs):
         if self.get_object().tasks.exists():
             messages.error(self.request, 'Невозможно удалить метку')
-            return redirects('labels:list')
+            return redirect('labels:list')
         messages.success(self.request, 'Метка успешно удалена')
         return super().post(self.request, *args, **kwargs)
