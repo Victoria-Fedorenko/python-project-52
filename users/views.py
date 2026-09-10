@@ -57,6 +57,11 @@ class UserDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def handle_no_permission(self):
         return redirect('users:list')  
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, "Пользователь успешно удален")
+        return response
+
 class UserLoginView(LoginView):
 
     template_name = 'users/login.html'
