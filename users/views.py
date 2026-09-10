@@ -7,6 +7,7 @@ from .forms import CustomUserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth import get_user_model
 from django.shortcuts import redirect
+from django.contrib.auth.views import LoginView, LogoutView
 
 User = get_user_model()
 
@@ -54,3 +55,19 @@ class UserDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     
     def handle_no_permission(self):
         return redirect('users:list')  
+
+class UserLoginView(LoginView):
+
+    template_name = 'users/login.html'
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, "Вы залогинены")
+        return response
+
+class UserLogoutView(LogoutView):
+
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+        messages.success(request, "Вы разлогинены")
+        return response
