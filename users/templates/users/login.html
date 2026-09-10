@@ -12,9 +12,7 @@
 
         <!-- Поле "Имя пользователя" -->
         <div>
-            <label for="id_username" class="block text-sm font-medium text-gray-700">
-                Имя пользователя
-            </label>
+            <label for="id_username" class="block text-sm font-medium text-gray-700">Имя пользователя</label>
             {{ form.username }}
             {% for error in form.username.errors %}
                 <p class="text-sm text-red-600 mt-1">{{ error }}</p>
@@ -23,9 +21,7 @@
 
         <!-- Поле "Пароль" -->
         <div>
-            <label for="id_password" class="block text-sm font-medium text-gray-700">
-                Пароль
-            </label>
+            <label for="id_password" class="block text-sm font-medium text-gray-700">Пароль</label>
             {{ form.password }}
             {% for error in form.password.errors %}
                 <p class="text-sm text-red-600 mt-1">{{ error }}</p>
