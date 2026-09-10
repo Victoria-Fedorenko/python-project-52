@@ -15,3 +15,9 @@ build:
 
 render-start:
 	gunicorn task_manager.wsgi
+
+setup:
+	uv sync
+	uv run python manage.py migrate
+	uv run python manage.py tailwind build
+	uv run python manage.py collectstatic --noinput
