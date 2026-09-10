@@ -4,7 +4,8 @@
 
 {% block content %}
 <div class="max-w-2xl mx-auto bg-white p-8 rounded shadow">
-    <h1 class="text-2xl font-bold mb-4">{{ task.name }}</h1>
+    <h1 class="text-2xl font-bold mb-6">{{ task.name }}</h1>
+
     <div class="space-y-3">
         <div>
             <span class="font-medium">Описание:</span>
@@ -23,6 +24,16 @@
             <span class="text-gray-700">{% if task.executor %}{{ task.executor.username }}{% else %}—{% endif %}</span>
         </div>
         <div>
+            <span class="font-medium">Метки:</span>
+            <span class="text-gray-700">
+                {% if task.labels.all %}
+                    {% for label in task.labels.all %}
+                        <span class="inline-block bg-gray-200 text-gray-800 text-xs px-2 py-1 rounded mr-1">{{ label.name }}</span>
+                    {% endfor %}
+                {% else %}—{% endif %}
+            </span>
+        </div>
+        <div>
             <span class="font-medium">Дата создания:</span>
             <span class="text-gray-700">{{ task.created_at|date:"d.m.Y H:i" }}</span>
         </div>
@@ -30,8 +41,8 @@
             <span class="font-medium">Дата обновления:</span>
             <span class="text-gray-700">{{ task.updated_at|date:"d.m.Y H:i" }}</span>
         </div>
-        <!-- Метки можно добавить позже -->
     </div>
+
     <div class="mt-6">
         <a href="{% url 'tasks:list' %}" class="text-blue-600 hover:text-blue-900">← Назад к списку</a>
     </div>
