@@ -20,14 +20,16 @@
             <!-- Ссылки меню -->
             <div class="space-x-4">
                 <a href="{% url 'users:list' %}" class="hover:underline">Пользователи</a>
+
                 {% if user.is_authenticated %}
                     <a href="{% url 'statuses:list' %}" class="hover:underline">Статусы</a>
                     <a href="{% url 'tasks:list' %}" class="hover:underline">Задачи</a>
                     <a href="{% url 'labels:list' %}" class="hover:underline">Метки</a>
                     <a href="{% url 'users:logout' %}" class="hover:underline">Выход</a>
+                {% else %}
+                    <a href="{% url 'users:login' %}" class="hover:underline">Вход</a>
+                    <a href="{% url 'users:create' %}" class="hover:underline">Регистрация</a>
                 {% endif %}
-                <a href="{% url 'users:login' %}" class="hover:underline">Вход</a>
-                <a href="{% url 'users:create' %}" class="hover:underline">Регистрация</a>
             </div>
         </div>
     </nav>
@@ -38,7 +40,7 @@
         {% if messages %}
             <div class="space-y-2 mb-6">
                 {% for message in messages %}
-                    <div role="alert" 
+                    <div role="alert"
                          class="p-4 rounded-md {% if message.tags == 'success' %}bg-green-100 text-green-800{% elif message.tags == 'error' %}bg-red-100 text-red-800{% else %}bg-blue-100 text-blue-800{% endif %}">
                         {{ message }}
                     </div>
@@ -51,7 +53,7 @@
         {% endblock %}
     </main>
 
-    <!-- ПОДВАЛ (опционально) -->
+    <!-- ПОДВАЛ -->
     <footer class="bg-gray-200 text-center text-gray-600 py-4 mt-8">
         <div class="container mx-auto">
             &copy; 2026 Менеджер задач
