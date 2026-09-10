@@ -11,9 +11,7 @@
 
         <!-- Поле "Имя" (first_name) -->
         <div>
-            <label for="{{ form.first_name.id_for_label }}" class="block text-sm font-medium text-gray-700">
-                Имя
-            </label>
+            <label for="id_first_name" class="block text-sm font-medium text-gray-700">Имя</label>
             {{ form.first_name }}
             {% if form.first_name.errors %}
                 <p class="text-sm text-red-600 mt-1">{{ form.first_name.errors|join:", " }}</p>
@@ -22,9 +20,7 @@
 
         <!-- Поле "Фамилия" (last_name) -->
         <div>
-            <label for="{{ form.last_name.id_for_label }}" class="block text-sm font-medium text-gray-700">
-                Фамилия
-            </label>
+            <label for="id_last_name" class="block text-sm font-medium text-gray-700">Фамилия</label>
             {{ form.last_name }}
             {% if form.last_name.errors %}
                 <p class="text-sm text-red-600 mt-1">{{ form.last_name.errors|join:", " }}</p>
@@ -33,9 +29,7 @@
 
         <!-- Поле "Имя пользователя" (username) -->
         <div>
-            <label for="{{ form.username.id_for_label }}" class="block text-sm font-medium text-gray-700">
-                Имя пользователя
-            </label>
+            <label for="id_username" class="block text-sm font-medium text-gray-700">Имя пользователя</label>
             {{ form.username }}
             {% if form.username.errors %}
                 <p class="text-sm text-red-600 mt-1">{{ form.username.errors|join:", " }}</p>
@@ -44,9 +38,7 @@
 
         <!-- Поле "Пароль" (password1) -->
         <div>
-            <label for="{{ form.password1.id_for_label }}" class="block text-sm font-medium text-gray-700">
-                Пароль
-            </label>
+            <label for="id_password1" class="block text-sm font-medium text-gray-700">Пароль</label>
             {{ form.password1 }}
             {% if form.password1.errors %}
                 <p class="text-sm text-red-600 mt-1">{{ form.password1.errors|join:", " }}</p>
@@ -55,9 +47,7 @@
 
         <!-- Поле "Подтверждение пароля" (password2) -->
         <div>
-            <label for="{{ form.password2.id_for_label }}" class="block text-sm font-medium text-gray-700">
-                Подтверждение пароля
-            </label>
+            <label for="id_password2" class="block text-sm font-medium text-gray-700">Подтверждение пароля</label>
             {{ form.password2 }}
             {% if form.password2.errors %}
                 <p class="text-sm text-red-600 mt-1">{{ form.password2.errors|join:", " }}</p>
