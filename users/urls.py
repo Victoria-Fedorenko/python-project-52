@@ -3,8 +3,8 @@ from .views import (
     UserCreateView,
     UserUpdateView,
     UserDeleteView,
-    UserLogoutView,
-    UserLoginView
+    UserLoginView,
+    user_logout_view
 )
 from django.urls import path
 
@@ -22,4 +22,5 @@ urlpatterns = [
     # Вход
     path('login/', UserLoginView.as_view(template_name='users/login.html'), name='login'),
     # Выход
-    path('logout/', UserLogoutView.as_view(), name='logout')]
+    path('logout/', user_logout_view, name='logout'),
+]

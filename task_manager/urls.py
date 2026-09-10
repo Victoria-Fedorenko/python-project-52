@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 from django.conf.urls import include
-from users.views import UserLoginView, UserLogoutView
+from users.views import UserLoginView, user_logout_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,5 +28,5 @@ urlpatterns = [
     path('tasks/', include('tasks.urls')),
     path('labels/', include('labels.urls')),
     path('login/', UserLoginView.as_view(template_name='users/login.html'), name='login'),
-    path('logout/', UserLogoutView.as_view(), name='logout'),
+    path('logout/', user_logout_view, name='logout'),
 ]

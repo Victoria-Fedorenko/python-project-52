@@ -7,7 +7,8 @@ from .forms import CustomUserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth import get_user_model
 from django.shortcuts import redirect
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView
+from django.contrib.auth import logout as auth_logout
 
 User = get_user_model()
 
@@ -65,12 +66,7 @@ class UserLoginView(LoginView):
         messages.success(self.request, "Вы залогинены")
         return response
 
-class UserLogoutView(LogoutView):
-
-    next_page = '/users/logout/'
-    http_method_names = ['get', 'post', 'options']
-
-    def dispatch(self, request, *args, **kwargs):
-        response = super().dispatch(request, *args, **kwargs)
-        messages.success(request, "Вы разлогинены")
-        return response
+def user_logout_view(request):
+    auth_logout(request)
+    messages.success(request, "Вы разлогинены")
+    return redirect('users:login')
