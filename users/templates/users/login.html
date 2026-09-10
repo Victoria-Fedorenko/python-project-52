@@ -1,29 +1,55 @@
-<form method="post" class="space-y-4">
-    {% csrf_token %}
+{% extends 'base.html' %}
+{% load tailwind_cli %}
 
-    <div>
-        <label for="id_username" class="block text-sm font-medium text-gray-700">Имя пользователя</label>
-        {{ form.username }}
-        {% for error in form.username.errors %}
-            <p class="text-sm text-red-600 mt-1">{{ error }}</p>
-        {% endfor %}
-    </div>
+{% block title %}Вход в систему{% endblock %}
 
-    <div>
-        <label for="id_password" class="block text-sm font-medium text-gray-700">Пароль</label>
-        {{ form.password }}
-        {% for error in form.password.errors %}
-            <p class="text-sm text-red-600 mt-1">{{ error }}</p>
-        {% endfor %}
-    </div>
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+    <h1 class="text-2xl font-bold mb-4 text-center">Вход</h1>
 
-    {% if form.non_field_errors %}
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-            {% for error in form.non_field_errors %}
-                <p>{{ error }}</p>
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+
+        <!-- Поле "Имя пользователя" -->
+        <div>
+            <label for="id_username" class="block text-sm font-medium text-gray-700">
+                Имя пользователя
+            </label>
+            {{ form.username }}
+            {% for error in form.username.errors %}
+                <p class="text-sm text-red-600 mt-1">{{ error }}</p>
             {% endfor %}
         </div>
-    {% endif %}
 
-    <button type="submit" class="...">Войти</button>
-</form>
+        <!-- Поле "Пароль" -->
+        <div>
+            <label for="id_password" class="block text-sm font-medium text-gray-700">
+                Пароль
+            </label>
+            {{ form.password }}
+            {% for error in form.password.errors %}
+                <p class="text-sm text-red-600 mt-1">{{ error }}</p>
+            {% endfor %}
+        </div>
+
+        <!-- Общие ошибки формы -->
+        {% if form.non_field_errors %}
+            <div role="alert" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <button type="submit"
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
+            Войти
+        </button>
+    </form>
+
+    <p class="mt-4 text-center text-sm text-gray-600">
+        Нет аккаунта?
+        <a href="{% url 'users:create' %}" class="text-blue-600 hover:underline">Зарегистрироваться</a>
+    </p>
+</div>
+{% endblock %}
