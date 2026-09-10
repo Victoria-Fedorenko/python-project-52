@@ -42,6 +42,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
+    'webserver',
     'python-project-52-dio1.onrender.com',
     '.onrender.com',  # Разрешает все поддомены .onrender.com
 ]
