@@ -67,6 +67,8 @@ class UserLoginView(LoginView):
 
 class UserLogoutView(LogoutView):
 
+    http_method_names = ['get', 'post', 'options']
+
     def dispatch(self, request, *args, **kwargs):
         response = super().dispatch(request, *args, **kwargs)
         messages.success(request, "Вы разлогинены")
