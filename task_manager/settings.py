@@ -164,6 +164,8 @@ STORAGES = {
     },
 }
 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
+
 LOGIN_URL = 'users:login'
 
 LOGIN_REDIRECT_URL = '/'
