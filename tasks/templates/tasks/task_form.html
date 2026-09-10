@@ -10,50 +10,41 @@
     <form method="post">
         {% csrf_token %}
         <div class="space-y-4">
-            <!-- Поле Имя -->
+
             <div>
-                <label for="{{ form.name.id_for_label }}" class="block text-gray-700 font-medium mb-1">Имя</label>
+                <label for="id_name" class="block text-gray-700 font-medium mb-1">Имя</label>
                 {{ form.name }}
-                {% if form.name.errors %}
-                    <div class="text-red-600 text-sm mt-1">{{ form.name.errors }}</div>
-                {% endif %}
+                {% if form.name.errors %}<div class="text-red-600 text-sm mt-1">{{ form.name.errors }}</div>{% endif %}
             </div>
-            <!-- Поле Описание -->
+
             <div>
-                <label for="{{ form.description.id_for_label }}" class="block text-gray-700 font-medium mb-1">Описание</label>
+                <label for="id_description" class="block text-gray-700 font-medium mb-1">Описание</label>
                 {{ form.description }}
-                {% if form.description.errors %}
-                    <div class="text-red-600 text-sm mt-1">{{ form.description.errors }}</div>
-                {% endif %}
+                {% if form.description.errors %}<div class="text-red-600 text-sm mt-1">{{ form.description.errors }}</div>{% endif %}
             </div>
-            <!-- Поле Статус -->
+
             <div>
-                <label for="{{ form.status.id_for_label }}" class="block text-gray-700 font-medium mb-1">Статус</label>
+                <label for="id_status" class="block text-gray-700 font-medium mb-1">Статус</label>
                 {{ form.status }}
-                {% if form.status.errors %}
-                    <div class="text-red-600 text-sm mt-1">{{ form.status.errors }}</div>
-                {% endif %}
+                {% if form.status.errors %}<div class="text-red-600 text-sm mt-1">{{ form.status.errors }}</div>{% endif %}
             </div>
-            <!-- Поле Исполнитель -->
+
             <div>
-                <label for="{{ form.executor.id_for_label }}" class="block text-gray-700 font-medium mb-1">Исполнитель</label>
+                <label for="id_executor" class="block text-gray-700 font-medium mb-1">Исполнитель</label>
                 {{ form.executor }}
-                {% if form.executor.errors %}
-                    <div class="text-red-600 text-sm mt-1">{{ form.executor.errors }}</div>
-                {% endif %}
+                {% if form.executor.errors %}<div class="text-red-600 text-sm mt-1">{{ form.executor.errors }}</div>{% endif %}
             </div>
-            <!-- Поле Метки -->
+
             <div>
-                <label for="{{ form.labels.id_for_label }}" class="block text-gray-700 font-medium mb-1">Метки</label>
+                <label for="id_labels" class="block text-gray-700 font-medium mb-1">Метки</label>
                 {{ form.labels }}
-                {% if form.labels.errors %}
-                    <div class="text-red-600 text-sm mt-1">{{ form.labels.errors }}</div>
-                {% endif %}
+                {% if form.labels.errors %}<div class="text-red-600 text-sm mt-1">{{ form.labels.errors }}</div>{% endif %}
             </div>
+
         </div>
         <div class="flex items-center justify-between mt-6">
-            <button type="submit" 
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <button type="submit"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 {% if form.instance.pk %}Изменить{% else %}Создать{% endif %}
             </button>
             <a href="{% url 'tasks:list' %}" class="text-gray-600 hover:text-gray-800">Отмена</a>
