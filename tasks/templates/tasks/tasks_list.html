@@ -14,40 +14,28 @@
 <form method="get" class="bg-white p-4 rounded shadow mb-6 flex flex-wrap items-end gap-4">
     <!-- Поле Статус -->
     <div>
-        <label for="{{ filter.form.status.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-            Статус
-        </label>
+        <label for="{{ filter.form.status.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">Статус</label>
         {{ filter.form.status }}
     </div>
     <!-- Поле Исполнитель -->
     <div>
-        <label for="{{ filter.form.executor.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-            Исполнитель
-        </label>
+        <label for="{{ filter.form.executor.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">Исполнитель</label>
         {{ filter.form.executor }}
     </div>
     <!-- Поле Метка -->
     <div>
-        <label for="{{ filter.form.labels.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-            Метка
-        </label>
+        <label for="{{ filter.form.labels.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">Метка</label>
         {{ filter.form.labels }}
     </div>
     <!-- Чекбокс "Только свои задачи" -->
     <div class="flex items-center">
         {{ filter.form.author }}
-        <label for="{{ filter.form.author.id_for_label }}" class="ml-2 text-sm font-medium text-gray-700">
-            Только свои задачи
-        </label>
+        <label for="{{ filter.form.author.id_for_label }}" class="ml-2 text-sm font-medium text-gray-700">Только свои задачи</label>
     </div>
     <!-- Кнопки -->
     <div class="flex gap-2">
-        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Применить
-        </button>
-        <a href="{% url 'tasks:list' %}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
-            Сбросить
-        </a>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Применить</button>
+        <a href="{% url 'tasks:list' %}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">Сбросить</a>
     </div>
 </form>
 <table class="min-w-full bg-white border border-gray-200">
